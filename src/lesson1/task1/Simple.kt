@@ -84,7 +84,11 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double =
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = TODO()
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
+    val x = x2 - x1
+    val y = y2 - y1
+    return sqrt(sqr(x) + sqr(y))
+}
 
 /**
  * Простая
@@ -126,7 +130,7 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int): Int {
-    var x = number % 10
+    val x = number % 10
     val y = (number / 10) % 10
     val z = (number / 100 )% 10
     return 100*x + 10*y + z
