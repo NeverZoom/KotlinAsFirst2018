@@ -67,7 +67,8 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int = (hours * 3600) + (min
  * Определить длину того же отрезка в метрах (в данном случае 18.98).
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
-fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double = (((sagenes * 48.0) + (arshins * 16.0) + vershoks) * 4.445) / 100.0
+fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double =
+        (((sagenes * 48.0) + (arshins * 16.0) + vershoks) * 4.445) / 100.0
 
 /**
  * Тривиальная
@@ -116,9 +117,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val first: Double  = (((initial * percent) / 100.0)) + initial
-    val second: Double  = (((first * percent) / 100.0)) + first
-    val third: Double  = (((second * percent) / 100.0)) + second
+    val first: Double  = initial * percent / 100.0 + initial
+    val second: Double  = first * percent / 100.0 + first
+    val third: Double  = second * percent / 100.0 + second
     return third
 }
 
@@ -132,6 +133,6 @@ fun accountInThreeYears(initial: Int, percent: Int): Double {
 fun numberRevert(number: Int): Int {
     val x = number % 10
     val y = (number / 10) % 10
-    val z = (number / 100 )% 10
+    val z = (number / 100 ) % 10
     return 100*x + 10*y + z
 }
