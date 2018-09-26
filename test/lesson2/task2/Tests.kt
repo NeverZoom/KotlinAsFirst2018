@@ -28,6 +28,8 @@ class Tests {
         assertTrue(queenThreatens(3, 6, 7, 6))
         assertTrue(queenThreatens(8, 1, 1, 8))
         assertFalse(queenThreatens(7, 6, 5, 7))
+        assertTrue(queenThreatens(3, 4, 2, 3))
+
     }
 
     @Test
