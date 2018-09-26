@@ -29,6 +29,7 @@ class Tests {
         assertTrue(queenThreatens(8, 1, 1, 8))
         assertFalse(queenThreatens(7, 6, 5, 7))
         assertTrue(queenThreatens(3, 4, 2, 3))
+        assertTrue(queenThreatens(8, 2, 8, 2))
 
     }
 
