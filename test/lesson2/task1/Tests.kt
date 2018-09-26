@@ -60,7 +60,6 @@ class Tests {
         assertEquals(3, whichRookThreatens(3, 7, 8, 7, 3, 5))
         assertEquals(0, whichRookThreatens(3, 7, 1, 5, 8, 9))
         assertEquals(2, whichRookThreatens(8, 8, 5, 6, 2, 8))
-
     }
 
     @Test
@@ -70,6 +69,8 @@ class Tests {
         assertEquals(1, rookOrBishopThreatens(2, 8, 6, 8, 1, 6))
         assertEquals(2, rookOrBishopThreatens(5, 4, 3, 7, 1, 8))
         assertEquals(1, rookOrBishopThreatens(1, 1, 1, 2, 7, 5))
+        assertEquals(3, rookOrBishopThreatens(8, 1, 8, 2, 1, 8))
+
     }
 
     @Test
