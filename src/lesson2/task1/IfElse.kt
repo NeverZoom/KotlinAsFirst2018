@@ -81,12 +81,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     val way: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
-    if (t1 * v1 >= way) {
-        return way / v1
-    } else if (t1 * v1 + t2 * v2 >= way) {
-        return t1 + (way - t1 * v1) / v2
-    } else {
-        return t1 + t2 + (way - t1 * v1 - t2 * v2) / v3
+    var first = t1 * v1 >= way
+    var second = t1 * v1 + t2 * v2 >= way
+    return when {
+        first -> way / v1
+        second -> t1 + (way - t1 * v1) / v2
+        else -> t1 + t2 + (way - t1 * v1 - t2 * v2) / v3
     }
 }
 
@@ -102,10 +102,15 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    if ((kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)) return 3
-    else if (kingX == rookX1 || kingY == rookY1) return 1
-    else if (kingX == rookX2 || kingY == rookY2) return 2
-    else return 0
+    var three = (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)
+    var one = kingX == rookX1 || kingY == rookY1
+    var two = kingX == rookX2 || kingY == rookY2
+    return when {
+        three -> 3
+        two -> 2
+        one -> 1
+        else -> 0
+    }
 }
 
 /**
@@ -121,10 +126,15 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    if (abs(kingX - bishopX) == abs(kingY - bishopY) && (kingX == rookX || kingY == rookY)) return 3
-    else if (abs(kingX - bishopX) == abs(kingY - bishopY)) return 2
-    else if (kingX == rookX || kingY == rookY) return 1
-    else return 0
+    var three = abs(kingX - bishopX) == abs(kingY - bishopY) && (kingX == rookX || kingY == rookY)
+    var one = kingX == rookX || kingY == rookY
+    var two = abs(kingX - bishopX) == abs(kingY - bishopY)
+    return when {
+        three -> 3
+        two -> 2
+        one -> 1
+        else -> 0
+    }
 }
 
 /**
@@ -136,10 +146,15 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if (a + b < c || a + c < b || b + c < a) return -1
-    else if (sqr(a) + sqr(b) == sqr(c) || sqr(a) + sqr(c) == sqr(b) || sqr(c) + sqr(b) == sqr(a)) return 1
-    else if (sqr(a) + sqr(b) < sqr(c) || sqr(a) + sqr(c) < sqr(b) || sqr(c) + sqr(b) < sqr(a)) return 2
-    else return 0
+    var minusOne = a + b < c || a + c < b || b + c < a
+    var one = sqr(a) + sqr(b) == sqr(c) || sqr(a) + sqr(c) == sqr(b) || sqr(c) + sqr(b) == sqr(a)
+    var two = sqr(a) + sqr(b) < sqr(c) || sqr(a) + sqr(c) < sqr(b) || sqr(c) + sqr(b) < sqr(a)
+    return when {
+        minusOne -> -1
+        two -> 2
+        one -> 1
+        else -> 0
+    }
 }
 
 /**
