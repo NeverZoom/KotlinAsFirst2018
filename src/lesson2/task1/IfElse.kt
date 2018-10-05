@@ -81,11 +81,11 @@ fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
     val way: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2.0
-    var first = t1 * v1 >= way
-    var second = t1 * v1 + t2 * v2 >= way
+    val firstPartWay = t1 * v1 >= way
+    val secondPartWay = t1 * v1 + t2 * v2 >= way
     return when {
-        first -> way / v1
-        second -> t1 + (way - t1 * v1) / v2
+        firstPartWay -> way / v1
+        secondPartWay -> t1 + (way - t1 * v1) / v2
         else -> t1 + t2 + (way - t1 * v1 - t2 * v2) / v3
     }
 }
@@ -102,13 +102,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    var three = (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)
-    var one = kingX == rookX1 || kingY == rookY1
-    var two = kingX == rookX2 || kingY == rookY2
+    val dangerRook1 = kingX == rookX1 || kingY == rookY1
+    val dangerRook2 = kingX == rookX2 || kingY == rookY2
+    val dangerRooks = dangerRook1 && dangerRook2
     return when {
-        three -> 3
-        two -> 2
-        one -> 1
+        dangerRooks -> 3
+        dangerRook2 -> 2
+        dangerRook1 -> 1
         else -> 0
     }
 }
@@ -126,13 +126,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    var three = abs(kingX - bishopX) == abs(kingY - bishopY) && (kingX == rookX || kingY == rookY)
-    var one = kingX == rookX || kingY == rookY
-    var two = abs(kingX - bishopX) == abs(kingY - bishopY)
+    val dangerRook = kingX == rookX || kingY == rookY
+    val dangerBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
+    val three = dangerBishop && dangerRook
     return when {
         three -> 3
-        two -> 2
-        one -> 1
+        dangerBishop -> 2
+        dangerRook -> 1
         else -> 0
     }
 }
