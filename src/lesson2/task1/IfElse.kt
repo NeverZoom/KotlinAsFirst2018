@@ -128,9 +128,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val dangerRook = kingX == rookX || kingY == rookY
     val dangerBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
-    val three = dangerBishop && dangerRook
+    val dangerRooks = dangerBishop && dangerRook
     return when {
-        three -> 3
+        dangerRooks -> 3
         dangerBishop -> 2
         dangerRook -> 1
         else -> 0
@@ -146,13 +146,13 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var minusOne = a + b < c || a + c < b || b + c < a
-    var one = sqr(a) + sqr(b) == sqr(c) || sqr(a) + sqr(c) == sqr(b) || sqr(c) + sqr(b) == sqr(a)
-    var two = sqr(a) + sqr(b) < sqr(c) || sqr(a) + sqr(c) < sqr(b) || sqr(c) + sqr(b) < sqr(a)
+    val notExist = a + b < c || a + c < b || b + c < a
+    val rectangular = sqr(a) + sqr(b) == sqr(c) || sqr(a) + sqr(c) == sqr(b) || sqr(c) + sqr(b) == sqr(a)
+    val obtuse = sqr(a) + sqr(b) < sqr(c) || sqr(a) + sqr(c) < sqr(b) || sqr(c) + sqr(b) < sqr(a)
     return when {
-        minusOne -> -1
-        two -> 2
-        one -> 1
+        notExist -> -1
+        obtuse -> 2
+        rectangular -> 1
         else -> 0
     }
 }
