@@ -128,9 +128,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val dangerRook = kingX == rookX || kingY == rookY
     val dangerBishop = abs(kingX - bishopX) == abs(kingY - bishopY)
-    val dangerRooks = dangerBishop && dangerRook
+    val dangerRookAndBishop = dangerBishop && dangerRook
     return when {
-        dangerRooks -> 3
+        dangerRookAndBishop -> 3
         dangerBishop -> 2
         dangerRook -> 1
         else -> 0
