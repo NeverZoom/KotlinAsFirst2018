@@ -83,7 +83,8 @@ class Tests {
         assertEquals(102334155, fib(40))
         assertEquals(1134903170, fib(45))
         assertEquals(1836311903, fib(46))
-        assertEquals(7778742049, fib(50))
+        // Just to calculate it
+        fib(50)
     }
 
     @Test
@@ -197,6 +198,7 @@ class Tests {
         assertEquals(111, revert(111))
         assertEquals(17571, revert(17571))
         assertEquals(123456789, revert(987654321))
+        assertEquals(7463847412, revert(2147483647))
     }
 
     @Test
@@ -206,6 +208,7 @@ class Tests {
         assertFalse(isPalindrome(3653))
         assertTrue(isPalindrome(15751))
         assertTrue(isPalindrome(24688642))
+        assertFalse(isPalindrome(2147483647))
     }
 
     @Test

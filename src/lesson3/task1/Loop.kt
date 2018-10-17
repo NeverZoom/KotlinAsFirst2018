@@ -72,13 +72,11 @@ fun digitNumber(n: Int): Int {
     var count = 0
     var number = n
     if (n == 0) return 1
-    else {
-        while (number != 0) {
-            number /= 10
-            count++
-        }
-        return count
+    while (number != 0) {
+        number /= 10
+        count++
     }
+    return count
 }
 
 /**
@@ -89,9 +87,13 @@ fun digitNumber(n: Int): Int {
  */
 fun fib(n: Int): Int {
     var num = 0
-    if (n == 1 || n == 2) return 1
-    for (k in 2..n) {
-        num = fib(n - 2) + fib(n - 1)
+    var x = 1
+    var y = 1
+    if (n < 3) return 1
+    for (k in 3..n) {
+        num = x + y
+        x = y
+        y = num
     }
     return num
 }
@@ -121,6 +123,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
+    if (n / n == 0) return n
     var count = 2
     while (n % count > 0) {
         count++
@@ -150,9 +153,12 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var count = 0
-    for (k in 1..maxOf(n, m)) {
-        if (m % k == 0 && n % k == 0) {
-            count++
+    if (maxDivisor(m) == 1 && maxDivisor(n) == 1) return true
+    else {
+        for (k in 1..maxOf(n, m)) {
+            if (m % k == 0 && n % k == 0) {
+                count++
+            }
         }
     }
     return count == 1
@@ -255,14 +261,14 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
 fun hasDifferentDigits(n: Int): Boolean {
     var num = n
     val check = num % 10
-    var count = 0
+    if (n == 0) return false
     while (num > 0) {
         if (num % 10 != check) {
-            count++
+            return true
         }
         num /= 10
     }
-    return count != 0
+    return false
 }
 
 /**
