@@ -105,15 +105,10 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val intervalOne = max(m, n)
-    val intervalTwo = m * n
-    var result = 0
-    for (k in intervalOne..intervalTwo) {
-        if ((k % n == 0) && (k % m == 0)) {
-            result = k
-            break
-        }
-    }
+    val intervalOne = maxOf(m, n)
+    val intervalTwo = minOf(m, n)
+    var result = intervalOne
+    while (result % intervalTwo != 0) result += intervalOne
     return result
 }
 
@@ -153,7 +148,7 @@ fun maxDivisor(n: Int): Int {
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
     var count = 0
-    if (maxDivisor(m) == 1 && maxDivisor(n) == 1) return true
+    if (lcm(m, n) == 1) return true
     else {
         for (k in 1..maxOf(n, m)) {
             if (m % k == 0 && n % k == 0) {
@@ -248,7 +243,16 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = n == revert(n)
+fun isPalindrome(n: Int): Boolean {
+    var pal = n
+    var num = 0
+    while (pal > 0) {
+        num += pal % 10
+        num *= 10
+        pal /= 10
+    }
+    return num / 10 == n
+}
 
 /**
  * Средняя
