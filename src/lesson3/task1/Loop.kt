@@ -118,12 +118,10 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    if (n / n == 0) return n
-    var count = 2
-    while (n % count > 0) {
-        count++
+    for (k in 2..sqrt(n.toDouble()).toInt()) {
+        if (n % k == 0) return k
     }
-    return count
+    return n
 }
 
 /**
@@ -131,13 +129,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var count = n - 1
-    while (n % count > 0) {
-        count--
-    }
-    return count
-}
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -147,16 +139,11 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var count = 0
-    if (lcm(m, n) == 1) return true
-    else {
-        for (k in 1..maxOf(n, m)) {
-            if (m % k == 0 && n % k == 0) {
-                count++
-            }
-        }
+    val min = minOf(m, n)
+    for (i in 2..min) {
+        if ((m % i == 0) && (n % i == 0)) return false
     }
-    return count == 1
+    return true
 }
 
 /**
@@ -246,10 +233,14 @@ fun revert(n: Int): Int {
 fun isPalindrome(n: Int): Boolean {
     var pal = n
     var num = 0
-    while (pal > 0) {
-        num += pal % 10
-        num *= 10
-        pal /= 10
+    if (digitNumber(n) < 10) {
+        return n == revert(n)
+    } else {
+        while (pal > 0) {
+            num += pal % 10
+            num *= 10
+            pal /= 10
+        }
     }
     return num / 10 == n
 }
@@ -267,9 +258,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     val check = num % 10
     if (n == 0) return false
     while (num > 0) {
-        if (num % 10 != check) {
-            return true
-        }
+        if (num % 10 != check) return true
         num /= 10
     }
     return false

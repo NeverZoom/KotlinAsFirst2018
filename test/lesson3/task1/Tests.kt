@@ -209,6 +209,7 @@ class Tests {
         assertTrue(isPalindrome(15751))
         assertTrue(isPalindrome(24688642))
         assertFalse(isPalindrome(2147483647))
+        assertTrue(isPalindrome(836474638))
     }
 
     @Test
