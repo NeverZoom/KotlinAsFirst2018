@@ -3,7 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * Пример
@@ -115,14 +115,28 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var abs = 0.0
+    return if (v.isNotEmpty()) {
+        for (i in 0 until v.size) {
+            abs += v[i] * v[i]
+        }
+        sqrt(abs)
+    } else {
+        0.0
+    }
+}
 
 /**
  * Простая
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    val count = list.sum() / list.size
+    return if (list.isEmpty()) 0.0
+    else count
+}
 
 /**
  * Средняя
@@ -132,7 +146,17 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    return if (list.isNotEmpty()) {
+        val middle = mean(list)
+        for (k in 0 until list.size) {
+            list[k] = list[k] - middle
+        }
+        list
+    } else {
+        list
+    }
+}
 
 /**
  * Средняя
@@ -141,7 +165,17 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var op = 0.0
+    return if (a.isNotEmpty()) {
+        for (k in 0 until a.size) {
+            op += a[k] * b[k]
+        }
+        op
+    } else {
+        op
+    }
+}
 
 /**
  * Средняя
@@ -151,7 +185,19 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    return if (p.isNotEmpty()) {
+        var result = p[0]
+        var exp = x
+        for (k in 1 until p.size) {
+            result += p[k] * exp
+            exp *= x
+        }
+        result
+    } else {
+        0.0
+    }
+}
 
 /**
  * Средняя
@@ -163,7 +209,18 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    return if (list.isNotEmpty()) {
+        var sum = list[0]
+        for (k in 1 until list.size) {
+            list[k] += sum
+            sum += list[k] - sum
+        }
+        list
+    } else {
+        list
+    }
+}
 
 /**
  * Средняя
@@ -172,7 +229,19 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var num = n
+    val list = mutableListOf<Int>()
+    var counter = 2
+    while (num > 1) {
+        while (num % counter == 0) {
+            list.add(counter)
+            num /= counter
+        }
+        counter++
+    }
+    return list
+}
 
 /**
  * Сложная
@@ -181,7 +250,10 @@ fun factorize(n: Int): List<Int> = TODO()
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String {
+    val list = factorize(n)
+    return list.joinToString(separator = "*")
+}
 
 /**
  * Средняя
@@ -190,7 +262,16 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    val list = mutableListOf<Int>()
+    var num = n
+    while (num > 0) {
+        val count = num % base
+        list.add(count)
+        num /= base
+    }
+    return list.reversed()
+}
 
 /**
  * Сложная
@@ -200,7 +281,20 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    var string = ""
+    var num = n
+    val alphabet = listOf("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+            "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
+    if (num == 0) string += 0
+    while (num > 0) {
+        val k = num % base
+        string += if (k < 10) k.toString() else alphabet[k - 10]
+        num /= base
+    }
+    return string.reversed()
+
+}
 
 /**
  * Средняя
@@ -230,7 +324,21 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var string = ""
+    var num = n
+    val natural = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var k = 0
+    while (num > 0) {
+        while (num >= natural[k]) {
+            string += roman[k]
+            num -= natural[k]
+        }
+        k++
+    }
+    return string
+}
 
 /**
  * Очень сложная
