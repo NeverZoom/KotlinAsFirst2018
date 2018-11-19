@@ -138,13 +138,17 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean {
-    val min = minOf(m, n)
-    for (i in 2..min) {
-        if ((m % i == 0) && (n % i == 0)) return false
+fun nod(m: Int, n: Int): Int {
+    var a = m
+    var b = n
+    while (a != b) {
+        if (a > b) a -= b
+        else b -= a
     }
-    return true
+    return a
 }
+
+fun isCoPrime(m: Int, n: Int): Boolean = nod(m, n) == 1
 
 /**
  * Простая
@@ -237,12 +241,11 @@ fun isPalindrome(n: Int): Boolean {
         return n == revert(n)
     } else {
         while (pal > 0) {
-            num += pal % 10
-            num *= 10
+            num = num * 10 + (pal % 10)
             pal /= 10
         }
     }
-    return num / 10 == n
+    return num == n
 }
 
 /**

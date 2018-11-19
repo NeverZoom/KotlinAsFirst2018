@@ -117,14 +117,11 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  */
 fun abs(v: List<Double>): Double {
     var abs = 0.0
-    return if (v.isNotEmpty()) {
-        for (i in 0 until v.size) {
-            abs += v[i] * v[i]
-        }
-        sqrt(abs)
-    } else {
-        0.0
+    for (i in 0 until v.size) {
+        abs += v[i] * v[i]
     }
+    return sqrt(abs)
+
 }
 
 /**
@@ -147,15 +144,11 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    return if (list.isNotEmpty()) {
-        val middle = mean(list)
-        for (k in 0 until list.size) {
-            list[k] = list[k] - middle
-        }
-        list
-    } else {
-        list
+    val middle = mean(list)
+    for (k in 0 until list.size) {
+        list[k] = list[k] - middle
     }
+    return list
 }
 
 /**
@@ -167,14 +160,10 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  */
 fun times(a: List<Double>, b: List<Double>): Double {
     var op = 0.0
-    return if (a.isNotEmpty()) {
-        for (k in 0 until a.size) {
-            op += a[k] * b[k]
-        }
-        op
-    } else {
-        op
+    for (k in 0 until a.size) {
+        op += a[k] * b[k]
     }
+    return op
 }
 
 /**
@@ -265,12 +254,14 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var num = n
-    while (num > 0) {
-        val count = num % base
-        list.add(count)
-        num /= base
+    return if (n == 0) listOf(0) else {
+        while (num > 0) {
+            val count = num % base
+            list.add(count)
+            num /= base
+        }
+        list.reversed()
     }
-    return list.reversed()
 }
 
 /**
