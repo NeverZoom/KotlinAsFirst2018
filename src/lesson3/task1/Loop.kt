@@ -217,7 +217,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
 fun revert(n: Int): Int {
     var num = n
     val numCount = digitNumber(n)
-    var resultNum = 0.0
+    var resultNum = 0
     for (i in 1..numCount) {
         resultNum = resultNum * 10 + num % 10
         num /= 10
@@ -237,13 +237,9 @@ fun revert(n: Int): Int {
 fun isPalindrome(n: Int): Boolean {
     var pal = n
     var num = 0
-    if (digitNumber(n) < 10) {
-        return n == revert(n)
-    } else {
-        while (pal > 0) {
-            num = num * 10 + (pal % 10)
-            pal /= 10
-        }
+    while (pal > 0) {
+        num = num * 10 + (pal % 10)
+        pal /= 10
     }
     return num == n
 }

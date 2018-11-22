@@ -175,17 +175,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    return if (p.isNotEmpty()) {
-        var result = p[0]
-        var exp = x
-        for (k in 1 until p.size) {
-            result += p[k] * exp
-            exp *= x
-        }
-        result
-    } else {
-        0.0
+    var result = 0.0
+    for (k in 0 until p.size) {
+        result += p[k] * x.pow(k)
     }
+    return result
 }
 
 /**
@@ -199,16 +193,12 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-    return if (list.isNotEmpty()) {
-        var sum = list[0]
-        for (k in 1 until list.size) {
-            list[k] += sum
-            sum += list[k] - sum
-        }
-        list
-    } else {
-        list
+    var sum = 0.0
+    for (k in 0 until list.size) {
+        list[k] += sum
+        sum += list[k] - sum
     }
+    return list
 }
 
 /**
@@ -254,7 +244,9 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var num = n
-    return if (n == 0) listOf(0) else {
+    return if (n == 0) {
+        listOf(0)
+    } else {
         while (num > 0) {
             val count = num % base
             list.add(count)
