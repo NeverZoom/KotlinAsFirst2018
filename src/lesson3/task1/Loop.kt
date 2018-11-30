@@ -196,7 +196,18 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var k = 3
+    val formulaX = x % (2 * PI)
+    var num = formulaX
+    var sum = num
+    while (abs(num) >= abs(eps)) {
+        num *= (-1 * sqr(formulaX)) / ((k - 1) * k)
+        sum += num
+        k += 2
+    }
+    return sum
+}
 
 /**
  * Средняя
@@ -205,7 +216,18 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var k = 2
+    val formulaX = x % (2 * PI)
+    var num = 1.0
+    var sum = num
+    while (abs(num) >= abs(eps)) {
+        num *= (-1 * sqr(formulaX)) / ((k - 1) * k)
+        sum += num
+        k += 2
+    }
+    return sum
+}
 
 /**
  * Средняя

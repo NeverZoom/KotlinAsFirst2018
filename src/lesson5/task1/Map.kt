@@ -137,7 +137,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean =  a.all { (key, value) -> b[key] == value }
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all { (key, value) -> b[key] == value }
 
 /**
  * Средняя
@@ -243,7 +243,8 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.intersect(b
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = word.all { chars.joinToString().toLowerCase().toSet().contains(it.toLowerCase()) }
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+        chars.joinToString().toLowerCase().toSet().containsAll(word.toLowerCase().toSet())
 
 /**
  * Средняя
@@ -304,7 +305,15 @@ fun hasAnagrams(words: List<String>): Boolean {
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val map = mutableMapOf<Int, Int>()
+    for (k in 0 until list.size) {
+        val numTwo = number - list[k]
+        if (numTwo in map) return map[numTwo]!! to k
+        else map[list[k]] = k
+    }
+    return -1 to -1
+}
 
 /**
  * Очень сложная
