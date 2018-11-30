@@ -246,14 +246,13 @@ fun convert(n: Int, base: Int): List<Int> {
     var num = n
     if (n == 0) {
         return listOf(0)
-    } else {
-        while (num > 0) {
-            val count = num % base
-            list.add(count)
-            num /= base
-        }
-        return list.reversed()
     }
+    while (num > 0) {
+        val count = num % base
+        list.add(count)
+        num /= base
+    }
+    return list.reversed()
 }
 
 /**
@@ -302,7 +301,9 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int =
+        decimal(str.map { if (it <= '9') it.toInt() - 48 else 10 + (it - 'a') }, base)
+
 
 /**
  * Сложная
