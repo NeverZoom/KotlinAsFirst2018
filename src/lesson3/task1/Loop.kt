@@ -222,7 +222,7 @@ fun revert(n: Int): Int {
         resultNum = resultNum * 10 + num % 10
         num /= 10
     }
-    return resultNum.toInt()
+    return resultNum
 }
 
 /**

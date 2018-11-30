@@ -244,15 +244,15 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     val list = mutableListOf<Int>()
     var num = n
-    return if (n == 0) {
-        listOf(0)
+    if (n == 0) {
+        return listOf(0)
     } else {
         while (num > 0) {
             val count = num % base
             list.add(count)
             num /= base
         }
-        list.reversed()
+        return list.reversed()
     }
 }
 
@@ -286,7 +286,12 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    val revDig = digits.reversed()
+    var num = revDig[0].toDouble()
+    for (k in 1 until revDig.size) num += revDig[k] * base.toDouble().pow(k)
+    return num.toInt()
+}
 
 /**
  * Сложная
@@ -308,15 +313,16 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
 fun roman(n: Int): String {
-    var string = ""
+    val pairList = listOf(Pair(1000, "M"), Pair(900, "CM"), Pair(500, "D"),
+            Pair(400, "CD"), Pair(100, "C"), Pair(90, "XC"), Pair(50, "L"), Pair(40, "XL"),
+            Pair(10, "X"), Pair(9, "IX"), Pair(5, "V"), Pair(4, "IV"), Pair(1, "I"))
     var num = n
-    val natural = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
-    val roman = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var string = ""
     var k = 0
     while (num > 0) {
-        while (num >= natural[k]) {
-            string += roman[k]
-            num -= natural[k]
+        while (num >= pairList.elementAt(k).first) {
+            string += pairList.elementAt(k).second
+            num -= pairList.elementAt(k).first
         }
         k++
     }
