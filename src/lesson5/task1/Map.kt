@@ -177,7 +177,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
     var maxPrice = Double.MAX_VALUE
     var name: String? = null
     stuff.forEach {
-        if (it.value.first == kind && maxPrice > it.value.second) {
+        if (it.value.first == kind && maxPrice >= it.value.second) {
             maxPrice = it.value.second
             name = it.key
         }
@@ -279,11 +279,13 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>): Boolean {
-    val map = mutableMapOf<String, List<Char>>()
-    for (anagrams in words) {
-        val sortedAnagrams = anagrams.toList().sorted()
-        if (map.containsValue(sortedAnagrams)) return true
-        else map[anagrams] = sortedAnagrams
+    val sortedAnagrams = words.map { it.toList().sorted() }
+    for (k in 0 until words.size) {
+        for (l in k + 1 until sortedAnagrams.size) {
+            if (sortedAnagrams[k] == sortedAnagrams[l]) {
+                return true
+            }
+        }
     }
     return false
 }

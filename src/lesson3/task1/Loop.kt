@@ -326,9 +326,9 @@ fun fibSequenceDigit(n: Int): Int {
     var numFib = 0
     while (numInString < n) {
         num++
-        numInString += digitNumber(fib(num))
+        numFib = fib(num)
+        numInString += digitNumber(numFib)
     }
-    numFib = fib(num)
     while (numInString != n) {
         numFib /= 10
         numInString--
